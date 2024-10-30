@@ -15,7 +15,7 @@ class CashCount extends Component
     use PrintTrait;
 
     public $users = [], $user, $user_id = 0, $totales = 0, $dateFrom, $dateTo;
-    public $totalSales = 0, $totalCreditSales = 0, $totalPayments = 0;
+    public $totalSales = 0, $totalCreditSales = 0, $totalTarjetSales = 0, $totalCashSales = 0, $totalSimpeSales = 0, $totalPayments = 0;
 
     function mount()
     {
@@ -67,6 +67,9 @@ class CashCount extends Component
 
             $this->totalSales = $sales->sum('total');
             $this->totalCreditSales = $sales->where('type', 'credit')->sum('total');
+            $this->totalTarjetSales = $sales->where('type', 'card')->sum('total');
+            $this->totalCashSales = $sales->where('type', 'cash')->sum('total');
+            $this->totalSimpeSales = $sales->where('type', 'simpe')->sum('total');
 
             $this->totalPayments = Payment::whereBetween('created_at', [$dFrom, $dTo])
                 ->when($this->user_id != 0, function ($qry) {
@@ -100,6 +103,9 @@ class CashCount extends Component
 
             $this->totalSales = $sales->sum('total');
             $this->totalCreditSales = $sales->where('type', 'credit')->sum('total');
+            $this->totalTarjetSales = $sales->where('type', 'card')->sum('total');
+            $this->totalCashSales = $sales->where('type', 'cash')->sum('total');
+            $this->totalSimpeSales = $sales->where('type', 'simpe')->sum('total');
 
             $this->totalPayments = Payment::whereBetween('created_at', [$dFrom, $dTo])
                 ->when($this->user_id != 0, function ($qry) {
@@ -118,6 +124,9 @@ class CashCount extends Component
     {
         $username = $this->user_id == 0 ? 'Todos los usuarios' : User::find($this->user_id)->name;
         $this->printCashCount($username, $this->dateFrom, $this->dateTo, $this->totalSales, $this->totalPayments, $this->totalCreditSales);
+        $this->printCashCount($username, $this->dateFrom, $this->dateTo, $this->totalSales, $this->totalPayments, $this->totalTarjetSales);
+        $this->printCashCount($username, $this->dateFrom, $this->dateTo, $this->totalSales, $this->totalPayments, $this->totalCashSales);
+        $this->printCashCount($username, $this->dateFrom, $this->dateTo, $this->totalSales, $this->totalPayments, $this->totalSimpeSales);
 
         $this->dispatch('noty', msg: 'Impresión de corte enviada');
     }

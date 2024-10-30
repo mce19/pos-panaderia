@@ -20,7 +20,7 @@
                         <h6 class="f-w-400 f-18 mb-0">Subtotal:</h6>
                         <div class="ms-auto text-end">
                             <span class="f-18 f-w-700">
-                                ${{ $subtotalCart }}
+                                ₡{{ $subtotalCart }}
                             </span>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                         <h6 class="f-w-400 f-18 mb-0">I.V.A.:</h6>
                         <div class="ms-auto text-end">
                             <span class="f-18 f-w-700">
-                                ${{ $ivaCart }}
+                                ₡{{ $ivaCart }}
                             </span>
                         </div>
                     </div>
@@ -36,11 +36,15 @@
                         <h6 class="f-w-700 f-18 mb-0 {{$payType == 1 ? 'txt-dark' : 'txt-info' }}">TOTAL:</h6>
                         <div class="ms-auto text-end">
                             <span class="f-18 f-w-700">
-                                ${{ $totalCart }}
+                                ₡{{ $totalCart }}
                             </span>
                         </div>
                     </div>
 
+                        <!-- Información de pago con tarjeta (sin campos de entrada) -->
+                        <div class="mt-3">
+                            <p class="text-muted">El método de pago se registra una vez confirmado</p>
+                        </div>
 
 
                     @if($payType == 1)
@@ -55,11 +59,10 @@
                         </div>
                     </div>
 
-
                     <div
                         class="light-card balance-card align-items-center {{ $cashAmount >0 ? 'd:block' : 'd-none' }} mt-2">
                         <h6 class="f-w-400 f-16 mb-0">Cambio:</h6>
-                        <div class="ms-auto text-end"><span class="f-16 txt-warning"> ${{ $change
+                        <div class="ms-auto text-end"><span class="f-16 txt-warning"> ₡{{ $change
                                 }}</span></div>
                     </div>
 

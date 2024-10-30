@@ -70,9 +70,9 @@ class Sales extends Component
         $this->cart = $this->cart->sortBy('name');
         $this->itemsCart = $this->totalItems();
         $this->taxCart = round($this->totalIVA());
-        $this->subtotalCart = round($this->subtotalCart() / 1.14);
+        $this->subtotalCart = round($this->subtotalCart() / 1.13);
         $this->totalCart = round($this->totalCart());
-        $this->ivaCart = round(($this->totalCart() / 1.14) * 0.14);
+        $this->ivaCart = round(($this->totalCart() / 1.13) * 0.13);
 
         $this->customer =  session('sale_customer', null);
 
@@ -366,7 +366,8 @@ class Sales extends Component
 
         if ($type == 1) $this->payTypeName = 'PAGO EN EFECTIVO';
         if ($type == 2)   $this->payTypeName = 'PAGO A CRÉDITO';
-        if ($type == 3) $this->payTypeName = 'PAGO CON DEPÓSITO';
+        if ($type == 3) $this->payTypeName = 'PAGO CON TARJETA';
+        if ($type == 4) $this->payTypeName = 'PAGO CON SIMPE MOVIL';
 
         $this->dispatch('initPay', payType: $type);
     }
@@ -402,16 +403,23 @@ class Sales extends Component
                 return;
             }
         }
-        if ($type == 3) {
-            if (empty($this->acountNumber)) {
-                $this->dispatch('noty', msg: 'INGRESA EL NÚMERO DE CUENTA');
-                return;
-            }
-            if (empty($this->depositNumber)) {
-                $this->dispatch('noty', msg: 'INGRESA EL NÚMERO DE DEPÓSITO');
+
+        if ($type == 3) { // Cambiar a "card" aquí
+            // Ya no se necesitan las validaciones para cuenta y depósito
+            if (empty($this->customer['name'])) {
+                $this->dispatch('noty', msg: 'SELECCIONA EL CLIENTE');
                 return;
             }
         }
+
+        // Validación para Simpe Móvil
+        if ($type == 4) {
+            if (empty($this->customer['name'])) {
+                $this->dispatch('noty', msg: 'INGRESA EL NOMBRE DEL CLIENTE QUE HACE EL SIMPE MÓVIL');
+                return;
+            }
+        }
+
 
         DB::beginTransaction();
         try {
@@ -419,10 +427,8 @@ class Sales extends Component
             //store sale
             $notes = null;
 
-            if ($type == 3) {
-                $notes = $this->banks->where('id', $this->bank)->first()->name;
-                $notes .= ",N.Cta: {$this->acountNumber}";
-                $notes .= ",N.Deposito: {$this->depositNumber}";
+            if ($type == 3) { // Para "card"
+                $notes = "Pago por tarjeta";
             }
 
             if ($type > 1) $this->cashAmount = 0;
@@ -433,10 +439,16 @@ class Sales extends Component
                 'items' => $this->itemsCart,
                 'customer_id' => $this->customer['id'],
                 'user_id' => Auth()->user()->id,
-                'type' => $type == 1 ? 'cash' : ($type == 2 ? 'credit' : 'deposit'),
-                'status' => ($type == 2 ?  'pending' : 'paid'),
+                'type' => match ($type) {
+                    1 => 'cash',
+                    2 => 'credit',
+                    3 => 'card',
+                    4 => 'simpe',
+                    default => 'unknown'
+                },
+                'status' => ($type == 2 ? 'pending' : 'paid'),
                 'cash' => $this->cashAmount,
-                'change' => $type == 1 ? round(floatval($this->cashAmount) - floatval($this->totalCart())) : 0,
+                'change' => $type == 1 ? round(floatval($this->cashAmount) - floatval($this->totalCart)) : 0,
                 'notes' => $notes
             ]);
 

@@ -12,7 +12,7 @@
                 </div>
                 <div class="card-body pt-0 order-details">
                     <div class="input-group">
-                        <span class="input-group-text b-0">Flete $</span>
+                        <span class="input-group-text b-0">Flete ₡</span>
                         <input wire:keydown.enter.prevent='setFlete($event.target.value)' class="form-control"
                             id="inputFlete" type="text" placeholder="Costo del flete" @if($flete>0 )
                         disabled
@@ -30,17 +30,17 @@
                         <div class="item-number"><span class="text-gray">Artículos</span><span class="f-w-500">{{
                                 $itemsCart }}
                                 (Items)</span></div>
-                        <div class="item-number"><span class="text-gray">Subtotal</span><span class="f-w-500">${{
+                        <div class="item-number"><span class="text-gray">Subtotal</span><span class="f-w-500">₡{{
                                 $subtotalCart }}</span></div>
                         <div class="item-number border-bottom"><span class="text-gray">I.V.A.</span><span
-                                class="f-w-500">${{$ivaCart}}</span>
+                                class="f-w-500">₡{{$ivaCart}}</span>
                         </div>
                         <div class="item-number"><span class="text-gray">Flete</span><span class="f-w-500 text-success">
-                                ${{ $flete }}
+                                ₡{{ $flete }}
                             </span>
                         </div>
                         <div class="item-number pt-3 pb-0"><span class="f-w-700">TOTAL</span>
-                            <h6 class="txt-primary">${{ $totalCart }}</h6>
+                            <h6 class="txt-primary">₡{{ $totalCart }}</h6>
                         </div>
                     </div>
                     <h5 class="m-0 p-t-40 text-center">Método de Pago</h5>

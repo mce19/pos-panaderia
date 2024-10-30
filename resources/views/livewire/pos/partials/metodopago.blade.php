@@ -26,7 +26,7 @@
 
 
         <div class="light-card balance-card {{ $cashAmount > 0 ? 'd-block' : 'd-none' }} mt-2">
-            <h6 class="f-w-400 f-16 mb-0">Cambio: <span class="f-16 txt-warning">${{ $change }}</span></h6>
+            <h6 class="f-w-400 f-16 mb-0">Cambio: <span class="f-16 txt-warning">₡{{ $change }}</span></h6>
         </div>
     </div>
 </div>

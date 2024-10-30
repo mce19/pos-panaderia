@@ -85,7 +85,7 @@
                                                         <b class="text-danger">Ventas Totales</b>
                                                     </span>
                                                     <div class="d-flex align-items-end gap-1 text-info">
-                                                        <h4>${{ round($totalSales,2) }}</h4><span
+                                                        <h4>₡{{ round($totalSales,2) }}</h4><span
                                                             class="font-primary f-12 f-w-500"></span>
                                                     </div>
                                                     <div class="bg-gradient">
@@ -95,6 +95,26 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        {{-- VENTA EN EFECTIVO --}}
+                                        <div class="col-sm-12 col-md-4">
+                                            <div class="card small-widget">
+                                                <div class="card-body primary">
+                                                    <span class="f-light f-18">
+                                                        <b>Ventas en Efectivo</b>
+                                                    </span>
+                                                    <div class="d-flex align-items-end gap-1 text-info">
+                                                        <h4>₡{{ round($totalCashSales,2) }}</h4><span
+                                                            class="font-primary f-12 f-w-500"></span>
+                                                    </div>
+                                                    <div class="bg-gradient">
+                                                        <i class="icofont icofont-credit-card"
+                                                            style="font-size: 35px!important"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- Ventas a CREDITO --}}
                                         <div class="col-sm-12 col-md-4">
                                             <div class="card small-widget">
                                                 <div class="card-body primary">
@@ -102,7 +122,45 @@
                                                         <b>Ventas a Crédito</b>
                                                     </span>
                                                     <div class="d-flex align-items-end gap-1 text-info">
-                                                        <h4>${{ round($totalCreditSales,2) }}</h4><span
+                                                        <h4>₡{{ round($totalCreditSales,2) }}</h4><span
+                                                            class="font-primary f-12 f-w-500"></span>
+                                                    </div>
+                                                    <div class="bg-gradient">
+                                                        <i class="icofont icofont-credit-card"
+                                                            style="font-size: 35px!important"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{-- PAGO EN SIMPE --}}
+                                        <div class="col-sm-12 col-md-4">
+                                            <div class="card small-widget">
+                                                <div class="card-body primary">
+                                                    <span class="f-light f-18">
+                                                        <b>Ventas en Simpe Móvil</b>
+                                                    </span>
+                                                    <div class="d-flex align-items-end gap-1 text-info">
+                                                        <h4>₡{{ round($totalSimpeSales,2) }}</h4><span
+                                                            class="font-primary f-12 f-w-500"></span>
+                                                    </div>
+                                                    <div class="bg-gradient">
+                                                        <i class="icofont icofont-credit-card"
+                                                            style="font-size: 35px!important"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{-- PAGO EN TARJETA --}}
+                                        <div class="col-sm-12 col-md-4">
+                                            <div class="card small-widget">
+                                                <div class="card-body primary">
+                                                    <span class="f-light f-18">
+                                                        <b>Ventas con Tarjeta</b>
+                                                    </span>
+                                                    <div class="d-flex align-items-end gap-1 text-info">
+                                                        <h4>₡{{ round($totalTarjetSales,2) }}</h4><span
                                                             class="font-primary f-12 f-w-500"></span>
                                                     </div>
                                                     <div class="bg-gradient">
@@ -119,7 +177,7 @@
                                                         <b class="text-warning">Pagos Registrados</b>
                                                     </span>
                                                     <div class="d-flex align-items-end gap-1 text-info">
-                                                        <h4>${{ round($totalPayments,2) }}</h4><span
+                                                        <h4>₡{{ round($totalPayments,2) }}</h4><span
                                                             class="font-primary f-12 f-w-500"></span>
                                                     </div>
                                                     <div class="bg-gradient">
@@ -161,10 +219,10 @@
 
 
     <script>
-        document.onkeydown = function(e) {   
+        document.onkeydown = function(e) {
 
             // f3
-            if (e.keyCode == '113') { 
+            if (e.keyCode == '113') {
             e.preventDefault()
                 var input = document.getElementById('inputCustomer');
                 var tomselect = input.tomselect
@@ -173,11 +231,11 @@
             }
         }
 
-        document.addEventListener('livewire:init', () => {   
+        document.addEventListener('livewire:init', () => {
             flatpickr("#dateFrom", {
                 dateFormat: "Y/m/d",
                 locale: "es",
-                theme: "confetti",    
+                theme: "confetti",
                 onChange: function(selectedDates, dateStr, instance) {
                     console.log(dateStr);
                     @this.set('dateFrom',dateStr)
@@ -186,17 +244,17 @@
             flatpickr("#dateTo", {
                 dateFormat: "Y/m/d",
                 locale: "es",
-                theme: "confetti",    
-                onChange: function(selectedDates, dateStr, instance) {                    
+                theme: "confetti",
+                onChange: function(selectedDates, dateStr, instance) {
                     @this.set('dateTo',dateStr)
                 }
             })
 
-    
 
 
-   
-        
+
+
+
 
     Livewire.on('show-modal-payment', event=> {
         $('#modalPartialPay').modal('show')
@@ -213,7 +271,7 @@
 })
 
 
-    
+
 
     </script>
 </div>

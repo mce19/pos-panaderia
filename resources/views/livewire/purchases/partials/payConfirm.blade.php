@@ -23,7 +23,7 @@
                         <h6 class="f-w-400 f-18 mb-0">Subtotal:</h6>
                         <div class="ms-auto text-end">
                             <span class="f-18 f-w-700">
-                                ${{ $subtotalCart }}
+                                ₡{{ $subtotalCart }}
                             </span>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                         <h6 class="f-w-400 f-18 mb-0">I.V.A.:</h6>
                         <div class="ms-auto text-end">
                             <span class="f-18 f-w-700">
-                                ${{ $ivaCart }}
+                                ₡{{ $ivaCart }}
                             </span>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                         <h6 class="f-w-400 f-18 mb-0">Flete:</h6>
                         <div class="ms-auto text-end">
                             <span class="f-18 f-w-700 text-success">
-                                ${{ $flete }}
+                                ₡{{ $flete }}
                             </span>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                         <h6 class="f-w-700 f-18 mb-0 txt-success">TOTAL:</h6>
                         <div class="ms-auto text-end">
                             <span class="f-18 f-w-700">
-                                ${{ $totalCart }}
+                                ₡{{ $totalCart }}
                             </span>
                         </div>
                     </div>

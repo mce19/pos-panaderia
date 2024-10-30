@@ -143,13 +143,19 @@ trait PrintTrait
                     $printer->text("Deuda actual: $" . $payment->sale->debt . "\n\n");
                 }
 
-                $printer->text("Forma de Pago:" . ($payment->pay_way == 'cash' ? 'EFECTIVO' : 'DEPÓSITO')  . "\n");
+                $printer->text("Forma de Pago: " . match ($payment->pay_way) {
+                    'cash' => 'EFECTIVO',
+                    'credit' => 'CREDITO',
+                    'card' => 'TARJETA', // Añadido
+                    'simpe' => 'SIMPE MOVIL', // Opción para Simpe Móvil
+                    default => 'DESCONOCIDO'
+                } . "\n");
 
-                if ($payment->pay_way == 'deposit') {
-                    $printer->text($payment->bank . "\n");
-                    $printer->text("No. Cuenta:" . $payment->account_number . "\n");
-                    $printer->text("No. Depósito:" . $payment->deposit_number . "\n");
-                }
+                // if ($payment->pay_way == 'deposit') {
+                //     $printer->text($payment->bank . "\n");
+                //     $printer->text("No. Cuenta:" . $payment->account_number . "\n");
+                //     $printer->text("No. Depósito:" . $payment->deposit_number . "\n");
+                // }
 
 
 

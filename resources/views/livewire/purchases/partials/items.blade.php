@@ -90,11 +90,11 @@
                                     class="form-control text-center" type="number" value="{{ $item['cost'] }}"
                                     id="c{{$item['id']}}">
                             </td>
-                            <td>${{ $item['total'] }}</td>
+                            <td>₡{{ $item['total'] }}</td>
                             @if($flete >0)
-                            <td>${{ $item['flete']['flete_producto'] }}</td>
+                            <td>₡{{ $item['flete']['flete_producto'] }}</td>
                             <td>
-                                ${{ floatval($item['total']) + floatval($item['flete']['total_flete']) }}
+                                ₡{{ floatval($item['total']) + floatval($item['flete']['total_flete']) }}
                             </td>
                             @endif
                             <td>

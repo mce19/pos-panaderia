@@ -103,12 +103,12 @@
                         <div class="item-number"><span class="text-gray">Artículos</span><span class="f-w-500">{{
                                 $itemsCart }}
                                 (Items)</span></div>
-                        <div class="item-number"><span class="text-gray">Subtotal</span><span class="f-w-500">${{
+                        <div class="item-number"><span class="text-gray">Subtotal</span><span class="f-w-500">₡{{
                                 $subtotalCart }}</span></div>
                         <div class="item-number border-bottom"><span class="text-gray">I.V.A.</span><span
-                                class="f-w-500">${{$ivaCart}}</span></div>
+                                class="f-w-500">₡{{$ivaCart}}</span></div>
                         <div class="item-number pt-3 pb-0"><span class="f-w-700">TOTAL</span>
-                            <h6 class="txt-primary">${{ $totalCart }}</h6>
+                            <h6 class="txt-primary">₡{{ $totalCart }}</h6>
                         </div>
                     </div>
                     <h5 class="m-0 p-t-40">Método de Pago</h5>
@@ -133,7 +133,14 @@
                         <div wire:click="initPayment(3)">
                             <div class="bg-payment"> <img
                                     src="../assets/images/dashboard-8/payment-option/wallet.svg" alt="wallet"></div>
-                            <span class="f-w-500 text-gray">Depósito</span>
+                            <span class="f-w-500 text-gray">Tarjeta</span>
+                        </div>
+
+                        {{-- simpe movil --}}
+                        <div wire:click="initPayment(4)">
+                            <div class="bg-payment"> <img
+                                    src="../assets/images/dashboard-8/payment-option/wallet.svg" alt="simpe"></div>
+                            <span class="f-w-500 text-gray">Simpe movil</span>
                         </div>
                     </div>
 

@@ -26,7 +26,7 @@
                                 <tr>
                                     <td> {{$pay->id }} </td>
                                     <td style="background-color: rgb(228, 243, 253)">
-                                        <div> <b>${{$pay->amount }}</b></div>
+                                        <div> <b>₡{{$pay->amount }}</b></div>
                                     </td>
                                     <td>{{$pay->type == 'pay' ? 'Abono' : 'Liquidación' }}</td>
                                     <td>{{$pay->pay_way == 'cash' ? 'Efectivo' : 'Depósito' }}</td>
@@ -55,7 +55,7 @@
                             <tfoot>
                                 <tr>
                                     <td>TOTALES: </td>
-                                    <td>${{round($pays->sum('amount'),2)}}</td>
+                                    <td>₡{{round($pays->sum('amount'),2)}}</td>
                                 </tr>
                             </tfoot>
                         </table>

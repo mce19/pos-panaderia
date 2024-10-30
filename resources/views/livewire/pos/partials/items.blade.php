@@ -33,7 +33,7 @@
                             style="cursor: pointer;">
                             <div>
                                 <h6 class="mb-0 text-primary">{{ Str::limit($product->name, 25) }}
-                                    <small class="mb-0 text-muted">${{ intval($product->price) }}</small>
+                                    <small class="mb-0 text-muted">₡{{ intval($product->price) }}</small>
                                     <small class="mb-0 text-muted"> / <span class="text-info"><i
                                                 class="icofont icofont-barcode text-dark"></i>{{ $product->sku }}
                                         </span></small>
@@ -61,8 +61,7 @@
                         @endif
                         type="button" class="btn btn-outline-light-2x txt-dark"><i class="icon-trash"></i>
                         Cancelar</button>
-                    <button onclick="initPartialPay()" type="button" class="btn btn-outline-light-2x txt-dark"><i
-                            class="icon-money"></i>
+                    <button onclick="initPartialPay()" type="button" class="btn btn-outline-light-2x txt-dark"> ₡
                         Abonos</button>
                     <button wire:click.prevent="printLast" type="button" class="btn btn-outline-light-2x txt-dark"><i
                             class="icon-printer"></i>
@@ -115,7 +114,7 @@
                                         <select class="form-select crypto-select warning"
                                             wire:change="setCustomPrice('{{ $item['id'] }}', $event.target.value )">
                                             @foreach($item['pricelist'] as $price)
-                                            <option>${{ $price['price'] }}</option>
+                                            <option>₡{{ $price['price'] }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -146,7 +145,7 @@
 
 
                             </td>
-                            <td>${{ $item['total'] }}</td>
+                            <td>₡{{ $item['total'] }}</td>
                             <td>
 
                                 <button wire:click.prevent="removeItem({{ $item['pid'] }})"
