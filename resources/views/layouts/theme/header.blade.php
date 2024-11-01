@@ -15,25 +15,37 @@
             </div>
         </form>
         <div class="header-logo-wrapper col-auto p-0">
-            <div class="logo-wrapper"><a href="index.html"><img class="img-fluid" src="../assets/images/logo/logo.png"
-                        alt=""></a></div>
+            <div class="logo-wrapper">
+                {{-- <a href="index.html"><img class="img-fluid" src="../assets/images/logo/logo.png"
+                        alt="">
+                </a> --}}
+                 <!-- Opción 2: Mostrar solo el nombre de la empresa -->
+            <span class="company-name" style="
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #00a8cc; /* Azul estilo Canva */
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 4px rgba(0, 168, 204, 0.3); ">Darling</span>
+            </div>
             <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i>
             </div>
         </div>
         <div class="left-header col-xxl-5 col-xl-6 col-lg-5 col-md-4 col-sm-3 p-0">
             <div class="notification-slider">
                 <div class="d-flex h-100"> <img src="../assets/images/giftools.gif" alt="gif">
-                    <h6 class="mb-0 f-w-400"><span class="font-primary">Productos sin stock! </span><span
+                    <h6 class="mb-0 f-w-400"><span class="font-primary">No te quedes sin stock! </span> <span
                             class="f-light"> Realizar orden de compra.</span></h6><i
                         class="icon-arrow-top-right f-light"></i>
                 </div>
                 <div class="d-flex h-100"><img src="../assets/images/giftools.gif" alt="gif">
-                    <h6 class="mb-0 f-w-400"><span class="f-light">Tienes cuentas por cobrar! </span>
-                    </h6><a class="ms-1" href="https://1.envato.market/3GVzd" target="_blank"> Revisar ahora !</a>
+                    <h6 class="mb-0 f-w-400"><span class="f-light">Revisa tus cuentas por pagar! </span>
+                    </h6><a class="ms-1" href="#" target="_blank"> Revisar ahora !</a>
                 </div>
                 <div class="d-flex h-100"><img src="../assets/images/giftools.gif" alt="gif">
                     <h6 class="mb-0 f-w-400"><span class="f-light">Existen nuevas promociones! </span>
-                    </h6><a class="ms-1" href="https://1.envato.market/3GVzd" target="_blank"> Enviar por whatsapp a
+                    </h6><a class="ms-1" href="#" target="_blank"> Enviar por whatsapp a
                         mis clientes</a>
                 </div>
             </div>
