@@ -118,29 +118,30 @@
                         <div wire:click.prevent='Store' type="button"
                         wire:loading.attr="disabled" {{ floatval($totalCart)==0 ? 'disabled' : '' }}>
                             <div class="bg-payment" wire:wire:loading.remove wire:target="Store"> <img
-                                    src="../assets/images/dashboard-8/payment-option/cash.svg" alt="cash"></div><span
-                                class="f-w-500 text-gray">Efectivo</span>
+                                    src="../assets/images/dashboard-8/payment-option/cash.svg" alt="cash">
+                             </div>
+                                <h6 class="f-w-700 text-black">Efectivo<h6>
                         </div>
 
                         {{-- credito --}}
                         <div wire:click="initPayment(2)">
                             <div class="bg-payment">
-                                <img src="../assets/images/dashboard-8/payment-option/card.svg" alt="card"></div><span
-                                class="f-w-500 text-gray">Crédito</span>
+                                <img src="../assets/images/dashboard-8/payment-option/card.svg" alt="card"></div><h6
+                                class="f-w-700 text-black">Crédito</h6>
                         </div>
 
                         {{-- deposito --}}
                         <div wire:click="initPayment(3)">
                             <div class="bg-payment"> <img
                                     src="../assets/images/dashboard-8/payment-option/wallet.svg" alt="wallet"></div>
-                            <span class="f-w-500 text-gray">Tarjeta</span>
+                            <h6 class="f-w-700 text-black">Tarjeta</h6>
                         </div>
 
                         {{-- simpe movil --}}
                         <div wire:click="initPayment(4)">
                             <div class="bg-payment"> <img
                                     src="../assets/images/dashboard-8/payment-option/wallet.svg" alt="simpe"></div>
-                            <span class="f-w-500 text-gray">Simpe movil</span>
+                            <h6 class="f-w-700 text-black">Simpe movil</h6>
                         </div>
                     </div>
 

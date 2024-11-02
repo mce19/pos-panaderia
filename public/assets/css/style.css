@@ -1,5 +1,5 @@
 /*! -----------------------------------------------------------------------------------
-
+text-gray
     Template Name: Cuba Admin
     Template URI: http://admin.pixelstrap.com/cuba/theme
     Description: This is Admin theme
@@ -7,7 +7,6 @@
     Author URI: https://themeforest.net/user/pixelstrap
 
 -----------------------------------------------------------------------------------
-
     1.Base css
         1.1 Reset CSS
         1.2 Typography CSS
@@ -19,7 +18,7 @@
         2.4 Badge CSS
         2.5 Bookmark CSS
         2.6 Breadcrumb CSS
-        2.7 Basic-card CSS        
+        2.7 Basic-card CSS
         2.8 Scrollbar CSS
         2.9 Buttons CSS
         2.10 Card CSS
@@ -33,7 +32,7 @@
         2.18 Forms CSS
         2.19 Icons CSS
         2.20 List CSS
-        2.21 Loader CSS 
+        2.21 Loader CSS
         2.22 Modal CSS
         2.23 Popover CSS
         2.24 Print CSS
@@ -61,7 +60,7 @@
         3.7 Comingsoon CSS
         3.8 Contacts CSS
         3.9 Dashboard_2 CSS
-        3.10 Dashboard_3 CSS 
+        3.10 Dashboard_3 CSS
         3.11 Dashboard_4 CSS
         3.12 Dashboard_5 CSS
         3.13 Dashboard_default CSS
@@ -19573,41 +19572,44 @@ select.crypto-select.primary {
 
 .payment-methods {
   display: flex;
+  gap: 5px;
   text-align: center;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .payment-methods .bg-payment {
   background-color: var(--light-slate);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 23px 21px;
+  padding: 16px 16px; /* Reducir padding */
   border-radius: 5px;
-  width: 90px;
-  height: 80px;
+  width: 80px;
+  height: 70px;
   border: 1px solid transparent;
 }
 @media (max-width: 1785px) {
   .payment-methods .bg-payment {
-    width: 85px;
+    width: 75px;
+    height: 65px;
   }
 }
 @media (max-width: 1720px) {
   .payment-methods .bg-payment {
-    width: 75px;
-    height: 71px;
+    width: 70px;
+    height: 60px;
   }
 }
 @media (max-width: 1585px) {
   .payment-methods .bg-payment {
-    width: 68px;
-    height: 68px;
+    width: 70px;
+    height: 60px;
   }
 }
 @media (max-width: 1485px) {
   .payment-methods .bg-payment {
-    width: 64px;
-    height: 64px;
+    width: 65px;
+    height: 55px;
   }
 }
 @media (max-width: 1445px) {

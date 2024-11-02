@@ -50,7 +50,7 @@
 
         </div>
         <div class="text-center">
-            <a href="https://luisfaxacademy.com" style="font-size: 12px">luisfaxacademy.com</a>
+            <a href="https://idicr.com" style="font-size: 12px">idicr.com</a>
         </div>
     </form>
 </x-guest-layout>

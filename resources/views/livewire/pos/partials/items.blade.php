@@ -7,7 +7,7 @@
             <div class="col-sm-12 col-md-6">
                 <div class="faq-form">
                     <input wire:keydown.enter='ScanningCode($event.target.value)' class="form-control form-control-lg"
-                        type="text" placeholder="Escanea el SKU o Código de Barras [F1]" id="inputSearch">
+                        type="text" placeholder="Escanea el producto o Código de Barras [F1]" id="inputSearch">
                     <i class="search-icon" data-feather="search"></i>
                 </div>
             </div>

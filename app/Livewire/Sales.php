@@ -501,6 +501,107 @@ class Sales extends Component
         }
     }
 
+
+    // Función para registrar la venta sin imprimir
+function QuickStore()
+{
+    $type = $this->payType;
+
+    // Validar que el carrito no esté vacío
+    if (floatval($this->totalCart) <= 0) {
+        $this->dispatch('noty', msg: 'AGREGA PRODUCTOS AL CARRITO');
+        return;
+    }
+
+    // Asignar cliente genérico si no se ha seleccionado uno
+    if ($this->customer == null) {
+        $this->customer = Customer::firstOrCreate(
+            ['name' => 'Consumidor'],
+        );
+    }
+
+    // Validar si se seleccionó un cliente
+    if ($this->customer == null) {
+        $this->dispatch('noty', msg: 'SELECCIONA EL CLIENTE');
+        return;
+    }
+
+    // Validaciones de efectivo
+    if ($type == 1) {
+        if (!$this->validateCash()) {
+            $this->dispatch('noty', msg: 'EL EFECTIVO ES MENOR AL TOTAL DE LA VENTA');
+            return;
+        }
+    }
+
+    // Iniciar transacción
+    DB::beginTransaction();
+    try {
+        // Guardar la venta
+        $notes = null;
+
+        if ($type == 3) { // Para "card"
+            $notes = "Pago por tarjeta";
+        }
+
+        if ($type > 1) $this->cashAmount = 0;
+
+        $sale = Sale::create([
+            'total' => $this->totalCart,
+            'discount' => 0,
+            'items' => $this->itemsCart,
+            'customer_id' => $this->customer['id'],
+            'user_id' => Auth()->user()->id,
+            'type' => match ($type) {
+                1 => 'cash',
+                2 => 'credit',
+                3 => 'card',
+                4 => 'simpe',
+                default => 'unknown'
+            },
+            'status' => ($type == 2 ? 'pending' : 'paid'),
+            'cash' => $this->cashAmount,
+            'change' => $type == 1 ? round(floatval($this->cashAmount) - floatval($this->totalCart)) : 0,
+            'notes' => $notes
+        ]);
+
+        // Obtener el carrito de la sesión
+        $cart = session("cart");
+
+        // Insertar detalles de la venta
+        $details = $cart->map(function ($item) use ($sale) {
+            return [
+                'product_id' => $item['pid'],
+                'sale_id' => $sale->id,
+                'quantity' => $item['qty'],
+                'regular_price' => $item['price2'] ?? 0,
+                'sale_price' => $item['sale_price'],
+                'created_at' => Carbon::now(),
+                'discount' => 0
+            ];
+        })->toArray();
+
+        SaleDetail::insert($details);
+
+        // Actualizar stocks
+        foreach ($cart as $item) {
+            Product::find($item['pid'])->decrement('stock_qty', $item['qty']);
+        }
+
+        DB::commit();
+
+        $this->dispatch('noty', msg: 'VENTA REGISTRADA CON ÉXITO');
+        $this->resetExcept('config', 'banks', 'bank');
+        $this->clear();
+        session()->forget('sale_customer');
+
+    } catch (\Exception $th) {
+        DB::rollBack();
+        $this->dispatch('noty', msg: "Error al intentar guardar la venta \n {$th->getMessage()}");
+    }
+}
+
+
     function validateCash()
     {
         $total = floatval($this->totalCart);

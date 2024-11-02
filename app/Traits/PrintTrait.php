@@ -143,7 +143,7 @@ trait PrintTrait
                     $printer->text("Deuda actual: $" . $payment->sale->debt . "\n\n");
                 }
 
-                $printer->text("Forma de Pago: " . match ($payment->pay_way) {
+                $printer->text("Forma de Pago Final: " . match ($payment->pay_way) {
                     'cash' => 'EFECTIVO',
                     'credit' => 'CREDITO',
                     'card' => 'TARJETA', // Añadido
