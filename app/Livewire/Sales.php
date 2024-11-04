@@ -503,11 +503,13 @@ class Sales extends Component
 
 
     // Función para registrar la venta sin imprimir
-function QuickStore()
-{
-    $type = $this->payType;
 
-    // Validar que el carrito no esté vacío
+    public function QuickStore()
+ {
+    // Establecer el tipo de pago en efectivo por defecto
+    $type = 1; // 1 = efectivo
+
+    // Validación: verificar si hay productos en el carrito
     if (floatval($this->totalCart) <= 0) {
         $this->dispatch('noty', msg: 'AGREGA PRODUCTOS AL CARRITO');
         return;
@@ -516,53 +518,30 @@ function QuickStore()
     // Asignar cliente genérico si no se ha seleccionado uno
     if ($this->customer == null) {
         $this->customer = Customer::firstOrCreate(
-            ['name' => 'Consumidor'],
+            ['name' => 'Consumidor']
         );
     }
 
-    // Validar si se seleccionó un cliente
-    if ($this->customer == null) {
-        $this->dispatch('noty', msg: 'SELECCIONA EL CLIENTE');
+    // Validación de efectivo
+    if (!$this->validateCash()) {
+        $this->dispatch('noty', msg: 'EL EFECTIVO ES MENOR AL TOTAL DE LA VENTA');
         return;
     }
 
-    // Validaciones de efectivo
-    if ($type == 1) {
-        if (!$this->validateCash()) {
-            $this->dispatch('noty', msg: 'EL EFECTIVO ES MENOR AL TOTAL DE LA VENTA');
-            return;
-        }
-    }
-
-    // Iniciar transacción
     DB::beginTransaction();
     try {
-        // Guardar la venta
-        $notes = null;
-
-        if ($type == 3) { // Para "card"
-            $notes = "Pago por tarjeta";
-        }
-
-        if ($type > 1) $this->cashAmount = 0;
-
+        // Guardar venta
         $sale = Sale::create([
             'total' => $this->totalCart,
             'discount' => 0,
             'items' => $this->itemsCart,
             'customer_id' => $this->customer['id'],
             'user_id' => Auth()->user()->id,
-            'type' => match ($type) {
-                1 => 'cash',
-                2 => 'credit',
-                3 => 'card',
-                4 => 'simpe',
-                default => 'unknown'
-            },
-            'status' => ($type == 2 ? 'pending' : 'paid'),
+            'type' => 'cash', // siempre 'cash'
+            'status' => 'paid', // pagado por defecto
             'cash' => $this->cashAmount,
-            'change' => $type == 1 ? round(floatval($this->cashAmount) - floatval($this->totalCart)) : 0,
-            'notes' => $notes
+            'change' => round(floatval($this->cashAmount) - floatval($this->totalCart)),
+            'notes' => null
         ]);
 
         // Obtener el carrito de la sesión
@@ -583,23 +562,24 @@ function QuickStore()
 
         SaleDetail::insert($details);
 
-        // Actualizar stocks
+        // Actualizar el stock de productos
         foreach ($cart as $item) {
             Product::find($item['pid'])->decrement('stock_qty', $item['qty']);
         }
 
         DB::commit();
 
+        // Notificar al usuario y limpiar la sesión
         $this->dispatch('noty', msg: 'VENTA REGISTRADA CON ÉXITO');
         $this->resetExcept('config', 'banks', 'bank');
         $this->clear();
         session()->forget('sale_customer');
-
     } catch (\Exception $th) {
         DB::rollBack();
         $this->dispatch('noty', msg: "Error al intentar guardar la venta \n {$th->getMessage()}");
     }
-}
+ }
+
 
 
     function validateCash()
