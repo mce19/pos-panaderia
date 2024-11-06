@@ -4,7 +4,6 @@ use App\Livewire\Roles;
 use App\Livewire\Sales;
 use App\Livewire\Users;
 
-
 use App\Livewire\Tester;
 use App\Livewire\Welcome;
 use App\Events\PrintEvent;
